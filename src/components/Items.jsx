@@ -37,27 +37,30 @@ function Items({ listId }) {
     }
   }
 
-  function deleteTask(index) {
-    const updatedTasks = tasks.filter((_, i) => i !== index);
+  function deleteTask(taskIndex) {
+    const updatedTasks = tasks.filter((_, index) => index !== taskIndex);
     setTasks(updatedTasks);
   }
 
-  function resolveTask(index) {
-    const taskToResolve = tasks[index];
+  function resolveTask(taskIndex) {
+    const taskToResolve = tasks[taskIndex];
     setResolvedTasks((prev) => [...prev, taskToResolve]);
-    deleteTask(index);
+    deleteTask(taskIndex);
   }
 
-  function unresolveTask(index) {
-    const taskToUnresolve = resolvedTasks[index];
+  function unresolveTask(taskIndex) {
+    const taskToUnresolve = resolvedTasks[taskIndex];
     setTasks((prev) => [...prev, taskToUnresolve]);
-    const updatedResolvedTasks = resolvedTasks.filter((_, i) => i !== index);
+    const updatedResolvedTasks = resolvedTasks.filter(
+      (_, i) => i !== taskIndex
+    );
     setResolvedTasks(updatedResolvedTasks);
   }
 
-  function startEditing(index) {
-    setEditIndex(index);
-    setEditValue(tasks[index]);
+  function startEditing(filteredIndex) {
+    const originalIndex = getOriginalIndexFromFiltered(filteredIndex);
+    setEditIndex(originalIndex);
+    setEditValue(tasks[originalIndex]);
   }
 
   function saveEdit() {
@@ -90,13 +93,26 @@ function Items({ listId }) {
     setIsFilterVisible(!isFilterVisible);
   }
 
-  return (
-    <div className="items">
-      <h1>Items</h1>
+  function getOriginalIndexFromFiltered(filteredIndex) {
+    let count = 0;
+    for (let i = 0; i < tasks.length; i++) {
+      if (tasks[i].toLowerCase().includes(filter.toLowerCase())) {
+        if (count === filteredIndex) {
+          return i;
+        }
+        count++;
+      }
+    }
+    return -1;
+  }
 
-      <div>
+  return (
+    <div className="items-container">
+      <h1 className="items-header">Items</h1>
+
+      <div className="task-input-container">
         <input
-          className="II"
+          className="task-input"
           type="text"
           placeholder="Enter an item..."
           value={newTask}
@@ -107,12 +123,13 @@ function Items({ listId }) {
         </button>
       </div>
 
-      <div>
+      <div className="filter-container">
         <button className="filter-toggle" onClick={toggleFilterVisibility}>
           Filter
         </button>
         {isFilterVisible && (
           <input
+            className="filter-input"
             type="text"
             placeholder="Search items..."
             value={filter}
@@ -123,13 +140,14 @@ function Items({ listId }) {
 
       {tasks.length > 0 && (
         <>
-          <h2>Active Items</h2>
-          <ol>
-            {filteredTasks.map((task, index) => (
-              <li key={index}>
-                {editIndex === index ? (
+          <h2 className="active-header">Active Items</h2>
+          <ol className="task-list">
+            {filteredTasks.map((task, filteredIndex) => (
+              <li key={filteredIndex} className="task-item">
+                {editIndex === getOriginalIndexFromFiltered(filteredIndex) ? (
                   <>
                     <input
+                      className="edit-input"
                       type="text"
                       value={editValue}
                       onChange={(e) => setEditValue(e.target.value)}
@@ -143,24 +161,28 @@ function Items({ listId }) {
                   </>
                 ) : (
                   <>
-                    <span className="text">{task}</span>
+                    <span className="task-text">{task}</span>
                     <button
                       className="resolve-button"
-                      onClick={() => resolveTask(index)}
+                      onClick={() =>
+                        resolveTask(getOriginalIndexFromFiltered(filteredIndex))
+                      }
                     >
-                      ✅
+                      Done
                     </button>
                     <button
                       className="edit-button"
-                      onClick={() => startEditing(index)}
+                      onClick={() => startEditing(filteredIndex)}
                     >
-                      ✏️
+                      Edit
                     </button>
                     <button
                       className="delete-button"
-                      onClick={() => deleteTask(index)}
+                      onClick={() =>
+                        deleteTask(getOriginalIndexFromFiltered(filteredIndex))
+                      }
                     >
-                      🗑️
+                      Remove
                     </button>
                   </>
                 )}
@@ -172,14 +194,14 @@ function Items({ listId }) {
 
       {filteredResolvedTasks.length > 0 && (
         <>
-          <h2>Resolved Items</h2>
-          <ol>
-            {filteredResolvedTasks.map((task, index) => (
-              <li key={index}>
-                <span className="text resolved">{task}</span>
+          <h2 className="resolved-header">Resolved Items</h2>
+          <ol className="resolved-task-list">
+            {filteredResolvedTasks.map((task, filteredIndex) => (
+              <li key={filteredIndex} className="resolved-task-item">
+                <span className="task-text resolved">{task}</span>
                 <button
-                  className="resolve-button"
-                  onClick={() => unresolveTask(index)}
+                  className="unresolve-button"
+                  onClick={() => unresolveTask(filteredIndex)}
                 >
                   Undo
                 </button>

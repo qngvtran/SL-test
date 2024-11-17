@@ -1,0 +1,74 @@
+.members-container {
+    font-family: Arial, sans-serif;
+    padding: 20px;
+    background: #f9f9f9;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+  }
+  
+  .members-header {
+    text-align: center;
+    font-size: 1.5em;
+    margin-top: 1.5em; 
+  }
+  
+  .members-list {
+    list-style: none;
+    padding-left: 0;
+    margin-top: 1em;
+  }
+  
+  .member-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+    background: #fff;
+  }
+  
+  .member-name {
+    flex: 1;
+  }
+  
+  .remove-button {
+    background-color: #f44336;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .remove-button:hover {
+    background-color: #d32f2f;
+  }
+  
+  .add-member-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px; 
+  }
+  
+  .member-input {
+    padding: 8px 16px;
+    border-radius: 4px;
+    border: 1px solid #ddd;
+    margin-right: 10px;
+    width: 60%;
+  }
+  
+  .add-member-button {
+    margin-bottom: 16px;
+    padding: 6px 12px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .add-member-button:hover {
+    background-color: #45a049;
+  }
+  
