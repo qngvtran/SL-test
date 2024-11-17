@@ -1,0 +1,85 @@
+
+.create-new-list {
+  font-family: Arial, sans-serif;
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background: #f9f9f9;
+}
+
+
+.create-new-list h1,
+.create-new-list h2 {
+  text-align: center;
+  margin-bottom: 1em;
+}
+
+.create-new-list h1 {
+  font-size: 1.5em;
+}
+
+.create-new-list h2 {
+  font-size: 1.2em;
+  margin-top: 1.5em;
+}
+
+
+.create-new-list input[type="text"],
+.create-new-list button {
+  padding: 8px 16px;
+  border-radius: 4px;
+  border: 1px solid #ddd;
+  cursor: pointer;
+}
+
+.create-new-list input[type="text"] {
+  width: 200px;
+  margin-bottom: 1em;;
+}
+
+.create-list-button {
+  background: #e0e0e0;
+}
+
+.create-list-button:hover,
+.create-new-list button:hover {
+  background: #d0d0d0;
+}
+
+
+.create-new-list ul {
+  list-style-type: none;
+  padding: 0;
+  margin-top: 1em;
+}
+
+.create-new-list li {
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background: #ffffff;
+}
+
+.create-new-list li h3 {
+  font-size: 1em;
+  margin: 0;
+}
+
+
+.create-new-list li .expanded-items {
+  margin-top: 10px;
+  padding: 10px;
+  border-top: 1px solid #ddd;
+}
+
+
+.create-new-list button {
+  background: #e0e0e0;
+}
+
+.create-new-list button:hover {
+  background: #d0d0d0;
+}
